@@ -15,8 +15,64 @@
     4. the ability to edit an existing task
 
     */
+
+    $(function() {
+      $('#add-button').on('click', () => {
+        let $li = $('<li>');
+        $li.text($('#description').val());
+        $('#todo-list').append($li);
+        $('#description').val('')
+
+        const $x = $('<button>');
+        $x.text('x').addClass('x-button');
+        $li.append($x);
+        $x.on('click', () => $li.remove());
+
+        const $check = $(`<input type='checkbox'>`);
+        $check.addClass('checkbox');
+        $li.append($check);
+
+        $check.change(function() {
+          if($li.hasClass('checked')){
+            $li.removeClass('checked')
+          } else {
+            $li.addClass('checked')
+          }
+        })
+
+        const $edit = $('<button>');
+        $edit.text('Edit').addClass('edit-button');
+        $check.after($edit);
+        $edit.on('click', () => {
+          $editBox = $(`<input type='text'>`);
+          $check.after($editBox)
+          
+          $confirm = $('<button>');
+          $confirm.text('Confirm Edit').addClass('confirm-button');
+          $editBox.after($confirm)
+          // console.log($li[0])
+          // console.log($li[0])
+          $confirm.on('click', () => {$li.text($editBox.val())})
+
+
+      })
+
+
+        })
+        const $clear = $('<button>');
+        $clear.text('Clear').addClass('clear-button');
+        $('#add-button').after($clear);
+        $clear.on('click', () => $('#description').val(''));
+      
+
+    })
+
     </script>
     <style>
+    .checked {
+      text-decoration: line-through;
+    }
+
     #wrapper {
       max-width: 480px;
       margin: auto;
@@ -32,7 +88,7 @@
       <input id="description" type="text" name="description">
       <button id="add-button">Add Task</button>
       <ul id="todo-list">
-        <li>Feed the cat</li>
+        <!-- <li>Feed the cat</li> -->
       </ul>
     </div>
   </body>

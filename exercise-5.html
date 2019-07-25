@@ -13,6 +13,11 @@
     */
     $(function() {
       // Write code here
+      $('ul').on('click','a', e => {
+        const $t = $(e.target);
+        e.preventDefault();
+        $('#iframe').attr('src', $t.attr('href'));
+      })
     });
     </script>
   </head>
